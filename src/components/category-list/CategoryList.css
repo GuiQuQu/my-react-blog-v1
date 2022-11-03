@@ -1,0 +1,25 @@
+/* category样式 */
+/* <= 768px 时 隐藏*/
+.category {
+    box-sizing: border-box;
+    background-color: hsla(0,0%,90%,5%);
+    padding: 4rem 1rem 2rem 2.5rem;
+    width: 300px;
+}
+
+.category-list {
+    list-style: none; 
+    padding-left:0.75rem;
+}
+.category-item {
+    margin-top: 0.25rem;
+}
+.category-item > .category-link {
+    text-decoration: none;
+    color: hsla(0, 0%, 60%, 100%);
+    font-size: 1rem;
+}
+.category-item > .category-link:hover {
+    cursor: pointer;
+    color: rgb(58, 138, 232);
+}
