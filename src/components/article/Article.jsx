@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Article.css'
-
 import md2html from '../../utils/md2html';
 import "github-markdown-css/github-markdown.css";
 import "highlight.js/styles/stackoverflow-light.css";
@@ -17,7 +16,7 @@ class Article extends Component {
 
     render_md() {
         let md_body = document.querySelector(".markdown-body");
-        md_body.innerHTML = md2html(this.props.md, this.render_toc);
+        md_body.innerHTML += md2html(this.props.md, this.render_toc);
     }
     render_toc (html) {
         let catalog = document.querySelector(".md-toc");
@@ -26,7 +25,12 @@ class Article extends Component {
     render() {
         return (
             <React.Fragment>
-                        <div className='markdown-body'></div>
+                        <div className="content">
+                            <div className="content-top">
+                                <a className='edit-btn' href='www.baidu.com'>Edit</a>
+                            </div>
+                            <div className='markdown-body'></div>
+                        </div>
                         <div className="md-toc d-xl-block d-none">
                             <span>On this Page</span>
                             <hr className="md-toc-line" />

@@ -1,12 +1,17 @@
-/* category样式 */
-/* <= 768px 时 隐藏*/
 .category {
     box-sizing: border-box;
     background-color: hsla(0,0%,90%,5%);
     padding: 4rem 1rem 2rem 2.5rem;
     width: 300px;
 }
+.category-line {
+    margin: 0.5rem 0;
+    border:0;
+    background-color:black;
+    height:1px;
+}
 
+/* 生成的ol的样式，弃用
 .category-list {
     list-style: none; 
     padding-left:0.75rem;
@@ -22,4 +27,67 @@
 .category-item > .category-link:hover {
     cursor: pointer;
     color: rgb(58, 138, 232);
+} */
+
+.node {
+    width: calc(300px - 3.5rem);
+    
+}
+.node > .node-div {
+    border: none;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 1.5rem;
+    background-color: white;
+    margin-bottom: 0.5rem;
+}
+.node a {
+    text-decoration: none;
+}
+.node span, .node a {
+    font-size: 13px;
+    margin: auto 0;
+    color: hsla(0, 0%, 0%, 100%);
+    user-select: none;
+}
+.node:hover {
+    color: inherit;
+    cursor: pointer;
+}
+.node .indent {
+    padding: 0 05.rem;
+}
+
+.folder-node > div.node-div > img {
+    margin-right: 0px;
+}
+/* 叶节点*/
+.file-node > div.node-div > img {
+    margin-right: 4px;
+}
+
+.file-node >  div.node-div > img:hover {
+    cursor: pointer;
+}
+.file-node > div.node-div > a:hover {
+    color: inherit;
+}
+.right-align {
+    text-align: right;
+    margin-left: auto;
+}
+.node > div.node-div > .ad-btn {
+    display: none;
+    width: 25px;
+    height: 24px;
+    line-height: 100%;
+    text-align: center;
+    border: none;
+    border-radius: 0px;
+    padding: 0px;
+    background-color: hsla(210,100%,50%,5%);
+    color: hsla(210,100%,50%,40%);
+    font-size: 16px;
+    font-weight: 600;
 }
