@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import "./App.css"
 import Article from './article/Article';
-import NavBar from './navBar/navBar.jsx'; 
+import NavBar from './navbar/navBar.jsx'; 
 import Bottom from "./bottom/Bottom.jsx"
 import CategoryList from './category-list/CategoryList';
 class App extends Component {
