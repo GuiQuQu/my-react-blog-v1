@@ -9,35 +9,6 @@ class CategoryList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            // data : [
-            //     {
-            //         id:0,value:"深度学习",
-            //         children:[
-            //             {
-            //                 id:1,value:"CNN",children: [
-            //                     {id:2,value:"卷积原理",href:"www.baidu.com"},
-            //                     {id:3,value:"卷积神经网络的应用", href: "www.baidu.com"},   
-            //                     {id:8,value: "文件夹",children:[
-            //                         {id:9,value:"卷积原理",href:"www.baidu.com"}
-            //                     ]}
-            //             ]
-            //         }
-            //         ]
-            //     },
-            //     {
-            //         id:4,value:"前端",children:[
-            //             {id:5,value:"react框架介绍",href: "www.baidu.com"}
-            //         ]
-            //     },
-            //     {
-            //         id:6,value:"后端",children:[
-            //             {id:7,value:"diango框架的使用",href:"www.baidu.com"}
-            //         ]
-            //     },
-            //     {
-            //         id:10,value:"快速排序算法",href:"www.baidu.com"
-            //     },
-            //     ],
             data : {
                 0:{id:0,value:"root",children:[1,5,7,11]},
                 1:{id:1,value:"深度学习",children:[2]},

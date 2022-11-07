@@ -20,6 +20,10 @@ import Katex from "katex"
 // task-lists 任务列表
 // anchor 给标题添加anchor,用来生成目录 markdown-it-toc-done-right 做目录
 // markdown-it-multimd-table 
+
+/**
+ * 目前不支持渲染html代码
+ * **/
 let md2html=(md,render_toc) => {
   let md_render = new MarkdownIt("default",{
     html: false, // 渲染html代码

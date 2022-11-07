@@ -27,7 +27,7 @@ class Article extends Component {
             <React.Fragment>
                         <div className="content">
                             <div className="content-top">
-                                <a className='edit-btn' href='www.baidu.com'>Edit</a>
+                                <a className='edit-btn' href='www.baidu.com'>编辑文档</a>
                             </div>
                             <div className='markdown-body'></div>
                         </div>
