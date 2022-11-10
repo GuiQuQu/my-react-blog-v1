@@ -2,6 +2,9 @@ import React from 'react';
 
 import Bold from "./bold";
 
+
+
+
 function Tool(props) {
     const svg = props.svg; //图标
     const title = props.title; // 名字
@@ -17,5 +20,5 @@ function Tool(props) {
 }
 export default Tool;
 export {
-    Bold,
+    Bold
 }

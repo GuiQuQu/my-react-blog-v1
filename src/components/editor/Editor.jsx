@@ -4,18 +4,6 @@ import { useState } from "react";
 import MDEditor from "./MDEditor.jsx"
 import "./Editor.css";
 
-/**
- * 传给props的参数
- * 确定css的类名
- * - containerClass
- * - textareaContainerClass
- * - toolbarClass
- * - previewContainerClass
- * 定制化的工具栏
- * - custom tools
- * 
- * **/
-
 function Editor(props) {
   // value 是传入Editor的md内容
   const [value] = useState(() => { return props.value ? props.value : "" });

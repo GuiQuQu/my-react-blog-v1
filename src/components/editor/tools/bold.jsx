@@ -2,16 +2,37 @@ import React from 'react';
 
 import Tool from "./tool";
 import blod from "../toolbar-svg/bold.svg";
+import {TextAreaApi} from "./utils";
+
 function Bold(props) {
-    const api = props.api; // 修改函数
+    const textArea = document.getElementById(props.textAreaId);
+    const taApi = new TextAreaApi(textArea);
+
+    const excute = (state,api) => {
+            let modifyText = `****`;
+            if (state.selectedText) {
+                modifyText = `**${state.selectedText}**`;
+            }
+            let moved = 2;
+            if (state.selectedText) moved = 0;
+            api.replaceSelection(modifyText,moved);
+    }
+
+    const excuteWarpper = () => {
+
+    }
+
     const handleClick = () => {
-        api();
+        console.log("click");
+        const state = taApi.getTextAreaState();
+        excute(state,taApi);
     }
     const handleOnKeyDown = (e) => {
         let keyCode = e.keyCode || e.which ||  e.charCode;
         let ctrlCode = e.ctrlKey || e.mataKey;
         if (ctrlCode && keyCode === 66) {
-            api();
+            const state = taApi.getTextAreaState();
+            excute(state,taApi);
         }
         e.preventDefault();
     }

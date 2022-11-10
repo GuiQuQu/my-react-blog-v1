@@ -15,11 +15,11 @@ function MDEditor (props) {
         previewDiv.innerHTML = md2html(value, () => false);
     },[value]);
 
-    const handleChange = () => {
+    const handleChange = () => { // 监听文本框内容变化,即时渲染预览内容
         const writeContent = document.querySelector("#md-editor-write-area").value;
         setValue(writeContent);
     }
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e) => { // 阻止tab的默认行为
         const writeArea = document.querySelector("#md-editor-write-area");
         if (e.keyCode === 9) {
             writeArea.value += "\t";
@@ -28,17 +28,14 @@ function MDEditor (props) {
         }
     }
     const handleKeyUp = (e) => {
-        console.log(e.keyCode);
-        if (e.keyCode === 192) {
+        if (e.keyCode === 192) { // 阻止`的默认行为
             e.preventDefault();
         }
     }
-    const bold = () => {
 
-    }
     return (<div className='md-editor-container'>
             <div className='md-editor-toolbar'>
-            <ToolBar.Bold />
+            <ToolBar.Bold textAreaId="md-editor-write-area"/>
             </div>
             <div className="md-editor-content">
                     <textarea name="write-area" id="md-editor-write-area" 
