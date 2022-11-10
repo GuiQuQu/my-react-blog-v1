@@ -1,0 +1,26 @@
+.md-editor-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: calc(100% - 12%);
+}
+
+.md-editor-content {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    justify-content: center;
+    height: 100%;
+
+}
+.md-editor-write-area {
+    width: 50%;
+    height: 100%;
+    resize: none;
+    border: solid 0.01rem;
+}
+.md-editor-preview-area {
+    width: 50%;
+    height: 100%;
+    
+}

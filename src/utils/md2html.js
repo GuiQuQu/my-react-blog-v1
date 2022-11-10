@@ -41,7 +41,7 @@ let md2html=(md,render_toc) => {
         }
         catch (__) {}
       }
-      return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
+      // return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
     },
   })
   .use(markdownItSub) // 下标 H~2~O;

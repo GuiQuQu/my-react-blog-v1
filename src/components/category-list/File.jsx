@@ -33,7 +33,10 @@ class File extends Component {
         return (
         <div className="file-node node" id={`file-node-${this.props.id}`}>
             <div className='node-div' onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
-                <span className="indent" dangerouslySetInnerHTML={{__html: this.indent()}} />
+                {<span style={{
+                    paddingRight: `calc(${this.props.layer} * 16px)`
+                }}></span>}
+                {/* <span className="indent" dangerouslySetInnerHTML={{__html: this.indent()}} /> */}
                 <img src={text_mark} alt="file"/>
                 <a href={this.props.href}>{this.props.value}</a>
                 <button type="button" className="right-align ad-btn">

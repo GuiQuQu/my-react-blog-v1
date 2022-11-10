@@ -55,8 +55,11 @@ class Folder extends Component {
     render() { 
         return ( <div className='folder-node node' id={`folder-node-${this.props.id}`}>
         <div className='node-div' onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+            {<span style={{
+                paddingRight: `calc(${this.props.layer} * 16px)`
+            }}></span>}
             {/*dangerouslySetInnerHTML 这个问题可能会导致xss攻击,之后需要优化掉*/}
-        <span className="indent" dangerouslySetInnerHTML={{__html: this.indent()}} />
+        {/* <span className="indent" dangerouslySetInnerHTML={{__html: this.indent()}} /> */}
             <img className='open-img' src={folder_open} alt="folder-open"/>
             <img className='close-img' src={folder_close} alt="folder-close"/>
             <span>{this.props.value}</span>
