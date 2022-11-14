@@ -4,6 +4,8 @@
  * 2.当没有选中文本时,从当前光标位置添加内容,并把光标根据传入的下标位置移动到指定位置
  * 3.ctrl+z 撤销操作
  * **/
+
+
  class TextAreaApi {
     constructor(textArea, setValue = null) {
         this.textArea = textArea;
@@ -25,8 +27,11 @@
         }
     }
 
-    getselectionAllLine() {
-        let state = this.getTextAreaState();
+    getAllLineContent(state) {
+        /**
+         * 扩展选中文本到st的那行开始,结束的那行结束,includeLF 是否包含结束行的换行符
+         * 区间左闭右开
+         * **/
         const lines = state.text.split("\n");
         let st = 0, ed = 0; //前开后闭
         let passLength = 0;
@@ -42,15 +47,25 @@
         //寻找结束行,从st行开始
         for (; i < lines.length; ++i) {
             if (passLength <= state.selection.end && state.selection.end <= passLength + lines[i].length) {
-                ed = passLength + lines[i].length;
+                ed = Math.min(passLength + lines[i].length, state.text.length);
                 break;
             }
             passLength += lines[i].length + 1;
         }
+        return [state.text.substring(st,ed), st, ed];
+    } 
+
+    getSelectionAllLine() {
+        /**
+         * 扩展选中的文本到st的那行开头,到ed那行的结尾,包括最后一行的
+         * 不包含最后一行的\n
+         * **/
+        let state = this.getTextAreaState();
+        const [newText, st, ed] = this.getAllLineContent(state);
         // 更新选中的文本
         state.selection.start = st;
         state.selection.end = ed;
-        state.selectedText = state.text.substring(st,ed);
+        state.selectedText = newText;
         this.setSelectionRange(st,ed);
         return state;
     }
@@ -87,19 +102,28 @@
         return [-1, -1];
     }
 
-    setSelectionRange(st,ed) {
-        if (st >= 0 && st < this.textArea.value.length && 
-            ed >= 0 && st < this.textArea.value.length && 
-            st <= ed)
-        this.textArea.setSelectionRange(st,ed);
+    setSelectionRange(st, ed) {
+        if (st >= 0 && st <= this.textArea.value.length && 
+            ed >= 0 && ed <= this.textArea.value.length && 
+            st <= ed) {
+                this.textArea.setSelectionRange(st,ed);
+            }
     }
 
+    /**
+     * 光标的移动问题
+     * 如果区间是[st,st],则光标在第st个字符的左侧
+     * 如果区间前后不等,则光标选中[st,ed-1]这个区域的字符,左闭右开
+     * 因此当光标前后相等的时候,内部其实没有值,该函数是在st位置的字符前插入。
+     * 一个字符的索引和它左侧光标是同一个
+     * **/
     replaceSelection(text, cursurPosition = -1) {
         const [st, ed] = this.getSelectedRange();
         if (st < 0 || ed < 0) return false;
         const oldText = this.textArea.value;
         let newText = oldText.substring(0,st) + text + oldText.substring(ed, oldText.length);
         this.textArea.value = newText;
+        
         if (cursurPosition < 0) {
             this.textArea.setSelectionRange(ed,ed);
         }else {

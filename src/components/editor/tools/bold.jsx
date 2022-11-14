@@ -23,7 +23,8 @@ const Bold = {
                 cursurPosition = state.selection.end + 4;
             }
         }
-        api.replaceSelection(modifyText, cursurPosition);
+        api.replaceSelection(modifyText);
+        api.setSelectionRange(cursurPosition,cursurPosition);
     },
     codeKey: ["control", "b"]
 }
