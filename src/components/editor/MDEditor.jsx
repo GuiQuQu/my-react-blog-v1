@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useMemo, useCallback} from 'react';
 import { useEffect } from 'react';
 
 import md2html from "../../utils/md2html";
-import * as ToolBar from "./tools/tool.jsx";
+import { TextAreaApi } from "./tools/utils";
+import Tool from "./tools/tool";
 
 import './MDEditor.css';
 
@@ -10,39 +11,94 @@ function MDEditor (props) {
     const [value, setValue] = React.useState(() => props.value? props.value : "");
 
     // 当value的值修改之后会被触发
+    const renderValue = useMemo(() => value, [value]);
+    
     useEffect(()=> {
         const previewDiv = document.querySelector("#md-editor-preview-area");
-        previewDiv.innerHTML = md2html(value, () => false);
-    },[value]);
-
-    const handleChange = () => { // 监听文本框内容变化,即时渲染预览内容
+        previewDiv.innerHTML = md2html(renderValue, () => false);
+    },[renderValue]);
+    
+    const handleInput = () => { // 监听文本框内容变化,即时渲染预览内容
         const writeContent = document.querySelector("#md-editor-write-area").value;
         setValue(writeContent);
     }
-    const handleKeyDown = (e) => { // 阻止tab的默认行为
-        const writeArea = document.querySelector("#md-editor-write-area");
-        if (e.keyCode === 9) {
-            writeArea.value += "\t";
-            setValue( value + "\t");
-            e.preventDefault();
-        }
-    }
-    const handleKeyUp = (e) => {
-        if (e.keyCode === 192) { // 阻止`的默认行为
+    
+    const bindCodeKey =useCallback((ta, tool) => {
+            const codeKey = tool["codeKey"];
+            if (!codeKey || codeKey.length <= 0)
+                return
+            // ["9"] or ["control", "b"]
+            const handleKeyDown = (e) => {
+                //检查快捷键条件
+                let check = true;
+                const codeKeys = tool["codeKey"];
+                for (let idx in codeKeys) {
+                    const TargetCode = codeKeys[idx];
+                    if (TargetCode.toLowerCase() === "control") {
+                        check = check && e.ctrlKey;
+                    }
+                    else if (TargetCode.toLowerCase() === "alt") {
+                        check = check && e.altKey;
+                    }
+                    else if (TargetCode.toLowerCase() === "shift") {
+                        check = check && e.shiftKey;
+                    }
+                    else {
+                        check = check && (TargetCode.toLowerCase() === e.key.toLowerCase())
+                    }
+                }
+                if (check) {
+                    const writeArea = document.querySelector("#md-editor-write-area");
+                    const taApi = new TextAreaApi(writeArea,setValue);
+                    const excute = tool["excute"];
+                    excute(taApi);
+                    e.preventDefault();
+                } 
+            }
+            ta.addEventListener("keydown",handleKeyDown);
+    },[]);
+
+    const handleTab = (e) => {
+        if (e.key.toLowerCase() === "tab") {
+            const writeArea = document.querySelector("#md-editor-write-area");
+            const api = new TextAreaApi(writeArea,setValue);
+            const state = api.getTextAreaState();
+            let modifyText = "\t";
+            let cursurPosition = state.selection.start + 1;
+            api.replaceSelection(modifyText, cursurPosition);
             e.preventDefault();
         }
     }
 
+    useEffect(() => {
+        //给textarea绑定事件
+        const ta = document.querySelector("#md-editor-write-area");
+        // tab
+        ta.addEventListener("keydown",handleTab);
+        // 工具栏快捷键
+        props.toolbars.forEach((tool) => {bindCodeKey(ta,tool)});
+        props.keyCodeToolbars.forEach((tool) => {bindCodeKey(ta,tool)});
+    },[]);
+
     return (<div className='md-editor-container'>
             <div className='md-editor-toolbar'>
-            <ToolBar.Bold textAreaId="md-editor-write-area"/>
+                {props.toolbars.map((tool,idx) => {
+                     if (tool.title.toLowerCase() !== "division") {
+                        return <Tool key={idx} svg={tool.svg} title={tool.title} hint={tool.hint}
+                        handleClick={() => {
+                            const writeArea = document.querySelector("#md-editor-write-area");
+                            const api = new TextAreaApi(writeArea,setValue);
+                            tool.excute(api);
+                        }}/>;
+                     } else {
+                        return <span key={idx}>|</span>
+                     }
+                })}
             </div>
             <div className="md-editor-content">
-                    <textarea name="write-area" id="md-editor-write-area" 
-                            value={value}  
-                            onChange={handleChange}  
-                            onKeyUp={handleKeyUp}
-                            onKeyDown={handleKeyDown}
+                    <textarea name="write-area" id="md-editor-write-area"
+                            value={value}
+                            onInput={handleInput}
                             className="md-editor-write-area">
                     </textarea>
                 <div id="md-editor-preview-area" className='markdown-body md-editor-preview-area'></div>

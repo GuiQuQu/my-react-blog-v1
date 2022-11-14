@@ -3,6 +3,7 @@ import { useState } from "react";
 // import MDEditor from "@uiw/react-md-editor";
 import MDEditor from "./MDEditor.jsx"
 import "./Editor.css";
+import defaultToolBars, {KeyCodeToolBars} from "./tools/defaultToolbar";
 
 function Editor(props) {
   // value 是传入Editor的md内容
@@ -18,6 +19,8 @@ function Editor(props) {
       <MDEditor
         ContainerClass="container"
         value={value}
+        toolbars = {defaultToolBars}
+        keyCodeToolbars = {KeyCodeToolBars}
       />
     </React.Fragment>);
 }

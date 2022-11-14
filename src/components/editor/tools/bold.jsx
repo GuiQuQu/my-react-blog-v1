@@ -1,48 +1,31 @@
-import React from 'react';
+import boldLogo from "../toolbar-svg/bold.svg";
 
-import Tool from "./tool";
-import blod from "../toolbar-svg/bold.svg";
-import {TextAreaApi} from "./utils";
-
-function Bold(props) {
-    const textArea = document.getElementById(props.textAreaId);
-    const taApi = new TextAreaApi(textArea);
-
-    const excute = (state,api) => {
-            let modifyText = `****`;
-            if (state.selectedText) {
-                modifyText = `**${state.selectedText}**`;
+const Bold = {
+    title: "bold",
+    svg: boldLogo,
+    hint: "加粗 Ctrl+B",
+    excute: (api) => {
+        const state = api.getTextAreaState();
+        let modifyText = `****`;
+        let cursurPosition = state.selection.start + 2;
+        if (state.selectedText) {
+            if (state.selectedText.startsWith("**") && state.selectedText.endsWith("**")) {
+                if (state.selectedText.length < 4) {
+                    modifyText = state.selectedText;
+                    cursurPosition = state.selectedText.end;
+                } else {
+                    modifyText = state.selectedText.substring(2, state.selectedText.length - 2);
+                    cursurPosition = state.selection.end - 4;
+                }
             }
-            let moved = 2;
-            if (state.selectedText) moved = 0;
-            api.replaceSelection(modifyText,moved);
-    }
-
-    const excuteWarpper = () => {
-
-    }
-
-    const handleClick = () => {
-        console.log("click");
-        const state = taApi.getTextAreaState();
-        excute(state,taApi);
-    }
-    const handleOnKeyDown = (e) => {
-        let keyCode = e.keyCode || e.which ||  e.charCode;
-        let ctrlCode = e.ctrlKey || e.mataKey;
-        if (ctrlCode && keyCode === 66) {
-            const state = taApi.getTextAreaState();
-            excute(state,taApi);
+            else {
+                modifyText = `**${state.selectedText}**`;
+                cursurPosition = state.selection.end + 4;
+            }
         }
-        e.preventDefault();
-    }
-    return ( <Tool 
-    svg={blod}
-    title="加粗"
-    hint="加粗 Ctrl+B"
-    handleClick={handleClick}
-    handleOnKeyDown={handleOnKeyDown}
-    /> );
+        api.replaceSelection(modifyText, cursurPosition);
+    },
+    codeKey: ["control", "b"]
 }
 
 export default Bold;
