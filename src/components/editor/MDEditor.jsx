@@ -70,6 +70,33 @@ function MDEditor (props) {
         }
     }
 
+    const handlePaste = (e) => {
+         // Chrome支持获取剪切板图像内容
+        const clipboardData = e.clipboardData;
+        if (!clipboardData) return;
+        if (!clipboardData.items) return;
+        let item = clipboardData.items[0];
+        const types = clipboardData.types || [];
+        console.log(types);
+        for (let i = 0; i < types.length; i++) {
+            if (types[i] === "Files")
+                item = clipboardData.items[i];
+        }
+        // 检查是否图片
+        console.log(item);
+        if (item && item.kind === "file" && item.type.match(/^image\//)) {
+            const writeArea = document.querySelector("#md-editor-write-area");
+            const api = new TextAreaApi(writeArea,setValue);
+            const state = api.getTextAreaState();
+            const imgSrc = window.URL.createObjectURL(item.getAsFile());
+            const modifyText = `![](${imgSrc})\n`;
+            const cursurPosition = state.selection.end + modifyText.length;
+            api.replaceSelection(modifyText);
+            api.setSelectionRange(cursurPosition,cursurPosition);
+            e.preventDefault();
+        }
+    };
+
     useEffect(() => {
         //给textarea绑定事件
         const ta = document.querySelector("#md-editor-write-area");
@@ -78,6 +105,8 @@ function MDEditor (props) {
         // 工具栏快捷键
         props.toolbars.forEach((tool) => {bindCodeKey(ta,tool)});
         props.keyCodeToolbars.forEach((tool) => {bindCodeKey(ta,tool)});
+        //
+        ta.addEventListener("paste",handlePaste);
     },[]);
 
     return (<div className='md-editor-container'>
@@ -91,16 +120,18 @@ function MDEditor (props) {
                             tool.excute(api);
                         }}/>;
                      } else {
-                        return <span key={idx}>|</span>
+                        return <span key={idx} className="toolbars-division">|</span>
                      }
                 })}
             </div>
+
             <div className="md-editor-content">
                     <textarea name="write-area" id="md-editor-write-area"
                             value={value}
                             onInput={handleInput}
                             className="md-editor-write-area">
                     </textarea>
+                    <div className="md-editor-division"></div>
                 <div id="md-editor-preview-area" className='markdown-body md-editor-preview-area'></div>
             </div>
 

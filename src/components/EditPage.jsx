@@ -5,9 +5,9 @@ import MdEditor from "./editor/Editor.jsx";
 const mdContent = `
 # 标题
 
----
-
 **Hello World**
+
+测试内容,占用阿三顶顶第哦啊算法i啊沙发沙发
 
 ![](https://cdn.acwing.com/media/user/profile/photo/117856_lg_b7be16fb18.jpg)
 \`\`\`cpp
@@ -29,7 +29,7 @@ $$
 `;
 
 function EditPage() {
-    return (<div className="edit-warpper container">
+    return (<div className="edit-warpper">
         <MdEditor 
         title={"测试文章"}
         value={mdContent} />

@@ -10,14 +10,11 @@ const Hr = {
     hint: "分割线",
     excute: (api) => {
         const state = api.getTextAreaState();
-        const [lineContent, st, ed] = api.getAllLineContent(state);
-        let modifyText = "\n\n---\n";
-        let cursurPosition = ed + modifyText.length + 1;
-        if (ed === state.text.length) {
-            //文末,没有\n
-             modifyText = "\n\n---\n\n";
-             cursurPosition = ed + modifyText.length;
-        } 
+        let [lineContent, st, ed] = api.getAllLineContent(state);
+        let modifyText = "\n---\n\n";
+        if (ed + 1 < state.text.length && state.text[ed +1 ] === "\n")
+            ed += 1;
+        let cursurPosition = ed + modifyText.length;
         api.setSelectionRange(ed,ed);
         api.replaceSelection(modifyText);
         api.setSelectionRange(cursurPosition,cursurPosition);
