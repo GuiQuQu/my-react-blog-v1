@@ -2,6 +2,7 @@
 .nav-self-container {
     box-shadow: 0px 2px 4px 0px hsla(0, 0%, 70%, 100%);
     margin-bottom: 2px;
+    flex-grow: 0;
     /* height: 62px; */
 }
 /*导航栏选项设置*/

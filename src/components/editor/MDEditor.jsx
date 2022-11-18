@@ -5,7 +5,7 @@ import md2html from "../../utils/md2html";
 import { TextAreaApi } from "./tools/utils";
 import Tool from "./tools/tool";
 
-import './MDEditor.css';
+// import './MDEditor.css';
 
 function MDEditor (props) {
     const [value, setValue] = React.useState(() => props.value? props.value : "");
@@ -19,7 +19,8 @@ function MDEditor (props) {
     },[renderValue]);
     
     const handleInput = () => { // 监听文本框内容变化,即时渲染预览内容
-        const writeContent = document.querySelector("#md-editor-write-area").value;
+        const ta = document.querySelector("#md-editor-write-area");
+        const writeContent = ta.value;
         setValue(writeContent);
     }
     
@@ -53,7 +54,7 @@ function MDEditor (props) {
                     const excute = tool["excute"];
                     excute(taApi);
                     e.preventDefault();
-                } 
+                }
             }
             ta.addEventListener("keydown",handleKeyDown);
     },[]);
@@ -96,7 +97,6 @@ function MDEditor (props) {
             e.preventDefault();
         }
     };
-
     useEffect(() => {
         //给textarea绑定事件
         const ta = document.querySelector("#md-editor-write-area");
@@ -105,15 +105,15 @@ function MDEditor (props) {
         // 工具栏快捷键
         props.toolbars.forEach((tool) => {bindCodeKey(ta,tool)});
         props.keyCodeToolbars.forEach((tool) => {bindCodeKey(ta,tool)});
-        //
+        
         ta.addEventListener("paste",handlePaste);
     },[]);
 
-    return (<div className='md-editor-container'>
-            <div className='md-editor-toolbar'>
+    return (<div className='flex flex-d-col flex-1 overflow-auto'>
+            <div className='flex flex-grow-0 items-center flex-1 gap-1 pd-1 pd-l-2 border-b-1px-gray'>
                 {props.toolbars.map((tool,idx) => {
                      if (tool.title.toLowerCase() !== "division") {
-                        return <Tool key={idx} svg={tool.svg} title={tool.title} hint={tool.hint}
+                        return <Tool key={idx} svg={tool.svg} title={tool.title} hint={tool.hint} _class={tool._class}
                         handleClick={() => {
                             const writeArea = document.querySelector("#md-editor-write-area");
                             const api = new TextAreaApi(writeArea,setValue);
@@ -124,15 +124,14 @@ function MDEditor (props) {
                      }
                 })}
             </div>
-
-            <div className="md-editor-content">
+            <div className="flex grow min-h-0">
                     <textarea name="write-area" id="md-editor-write-area"
+                            className="border-none pd-2 grow w-full outline-none overflow-auto thin-gray-scroll"
                             value={value}
                             onInput={handleInput}
-                            className="md-editor-write-area">
-                    </textarea>
-                    <div className="md-editor-division"></div>
-                <div id="md-editor-preview-area" className='markdown-body md-editor-preview-area'></div>
+                            style={{cursor: "auto"}}></textarea>
+                    <div className="w-full max-w-3px bg-light-gray"></div>
+                <div id="md-editor-preview-area" className='markdown-body grow w-full pd-t-2 pd-3  overflow-auto thin-gray-scroll'></div>
             </div>
 
     </div>)

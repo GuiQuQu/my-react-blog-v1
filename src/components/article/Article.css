@@ -17,7 +17,7 @@
     min-width: 200px;
     max-width: 980px;
     padding: 4rem 1rem;
-    flex-grow: 2;
+    flex-grow: 1;
 } */
 
 @media (max-width: 767px) {

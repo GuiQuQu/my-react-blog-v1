@@ -1,5 +1,4 @@
 import boldLogo from "../toolbar-svg/bold.svg";
-
 const Bold = {
     title: "bold",
     svg: boldLogo,

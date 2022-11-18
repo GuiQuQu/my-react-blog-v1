@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import MdEditor from "./editor/Editor.jsx";
 
@@ -29,10 +29,17 @@ $$
 `;
 
 function EditPage() {
-    return (<div className="edit-warpper">
-        <MdEditor 
-        title={"测试文章"}
-        value={mdContent} />
+    useEffect(() => {
+        const body = document.querySelector("body");
+        body.style.overflowY = "hidden";
+        return function() {
+            body.style.overflowY = "auto";
+        }
+    }, []);
+    return (<div className="w-full">
+        <MdEditor
+            title={"测试文章"}
+            value={mdContent} />
     </div>);
 }
 

@@ -27,6 +27,8 @@
         }
     }
 
+    
+
     getAllLineContent(state) {
         /**
          * 扩展选中文本到st的那行开始,结束的那行结束,includeLF 是否包含结束行的换行符
@@ -89,12 +91,12 @@
         return state;
     };
 
-    getCursurPosition() { // 获取光标位置
-        let cursurPosition = -1;
-        if (this.textArea.selectionStart)
-            cursurPosition = this.textArea.selectionStart
-        return cursurPosition;
-    }
+    // getCursurPosition() { // 获取光标位置
+    //     let cursurPosition = -1;
+    //     if (this.textArea.selectionStart)
+    //         cursurPosition = this.textArea.selectionStart
+    //     return cursurPosition;
+    // }
 
     getSelectedRange() {  //获取选中范围
         if (this.textArea.selectionStart >= 0 && this.textArea.selectionEnd >= 0)
@@ -133,6 +135,10 @@
             this.setValue(newText);
         this.textArea.focus();
         return true;
+    };
+
+    scrollToBottom() {
+        this.textArea.scrollTop = this.textArea.scrollHeight;
     }
 }
 

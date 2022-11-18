@@ -9,13 +9,13 @@ import { Route, Routes } from 'react-router-dom';
 
 
 function App() {
-    return (<React.Fragment>
+    return (<div className='w-full h-full flex flex-d-col overflow-y-auto gap-8 bg-light-gray'>
         <NavBar />
         <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/edit" element={<EditPage />} />
         </Routes>
-    </React.Fragment>);
+    </div>);
 }
 
 export default App;

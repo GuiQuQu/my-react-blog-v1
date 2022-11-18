@@ -60,9 +60,10 @@ function CheckListCondition(state,lineContent)
     const st = state.selection.start;
     const ed = state.selection.end;
     const reMatch = lineContent.match(/^[0-9]+\. /g);
-    if (st === ed && state.text.substring(ed,ed + 1) === "\n" && lineContent.startsWith("- "))
+    const lineEnd = ed === state.text.length || state.text.substring(ed,ed + 1) === "\n";
+    if (st === ed && lineEnd && lineContent.startsWith("- "))
         return ["ul","- "];
-    else if (st === ed && state.text.substring(ed,ed + 1) === "\n" && reMatch) {
+    else if (st === ed && lineEnd && reMatch) {
         const last = reMatch[0].substring(0, reMatch[0].length - 2);
         const cur = (parseInt(last) + 1).toString();
         return ["ol",`${cur}. `];
@@ -72,6 +73,25 @@ function CheckListCondition(state,lineContent)
 
 }   
 
+const EnterAutoList = {
+    title : "auto list by enter",
+    excute: (api) => {
+        let state = api.getTextAreaState();
+        const [lineContent] = api.getAllLineContent(state);
+        const [res,modify] = CheckListCondition(state,lineContent);
+        let modifyText = `\n${modify}`;
+        let cursurPosition = state.selection.end + modifyText.length;
+        api.replaceSelection(modifyText);
+        api.setSelectionRange(cursurPosition,cursurPosition);
+        // 保证行可见,新开一行如果不在可视范围内需要滚动滚动条
+        let stateAfter = api.getTextAreaState();
+        if ( stateAfter.selection.end >= stateAfter.text.length ) {
+            api.scrollToBottom();
+        }
+    },
+    codeKey: ["enter"]
+}
+
 const NormalEnter = {
     title: "normalEnter",
     excute: (api) => {
@@ -79,12 +99,14 @@ const NormalEnter = {
         const [lineContent] = api.getAllLineContent(state);
         const [res,modify] = CheckListCondition(state,lineContent);
         if(res === "other") {
+            console.log("other")
             let modifyText = `\n${modify}`;
             let cursurPosition = state.selection.end + modifyText.length;
             api.replaceSelection(modifyText);
             api.setSelectionRange(cursurPosition,cursurPosition);
         }
     },
+    keepDefault:true,
     codeKey: ["enter"]
 }
 
@@ -93,14 +115,18 @@ const UlEnter = {
     excute: (api) => {
         let state = api.getTextAreaState();
         const [lineContent] = api.getAllLineContent(state);
-        const [res,modify] = CheckListCondition(state,lineContent)
+        const [res,modify] = CheckListCondition(state,lineContent);
         if(res === "ul") {
+            console.log("ul");
             let modifyText = `\n${modify}`;
             let cursurPosition = state.selection.end + modifyText.length;
             api.replaceSelection(modifyText);
             api.setSelectionRange(cursurPosition,cursurPosition);
+            return true;
         }
+        return false;
     },
+    keepDefault:true,
     codeKey: ["enter"]
 }
 
@@ -115,8 +141,11 @@ const OlEnter = {
             let cursurPosition = state.selection.end + modifyText.length;
             api.replaceSelection(modifyText);
             api.setSelectionRange(cursurPosition,cursurPosition);
+            return true;
         }
+        return false;
     },
+    keepDefault:true,
     codeKey: ["enter"]
 }
 
@@ -126,4 +155,5 @@ export {
     UlEnter,
     OlEnter,
     NormalEnter,
+    EnterAutoList,
 }
