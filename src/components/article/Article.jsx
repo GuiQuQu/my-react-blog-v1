@@ -18,23 +18,26 @@ class Article extends Component {
         let md_body = document.querySelector(".markdown-body");
         md_body.innerHTML += md2html(this.props.md, this.render_toc);
     }
-    render_toc (html) {
-        let catalog = document.querySelector(".md-toc");
+    render_toc(html) {
+        let catalog = document.querySelector("#md-toc");
         catalog.innerHTML += html;
     }
     render() {
         return (
             <React.Fragment>
-                        <div className="content">
-                            <div className="content-top">
-                                <a className='edit-btn' href='www.baidu.com'>编辑文档</a>
-                            </div>
-                            <div className='markdown-body'></div>
-                        </div>
-                        <div className="md-toc d-xl-block d-none">
-                            <span>On this Page</span>
-                            <hr className="md-toc-line" />
-                        </div>
+                {/* top */}
+                {/* <div className="content-top">
+                    <a className='edit-btn' href='www.baidu.com'>编辑文档</a>
+                </div> */}
+                {/* md-body */}
+                <div className='markdown-body md-container white-card w-full pd-8' id="md-body"></div>
+                {/* toc */}
+                <div className="all-toc-container d-xl-block d-none border-box 
+                        white-card pd-4" id="md-toc">
+                    <span className='color-60-gray'>On this Page</span>
+                    <hr className="margin-b-2 margin-t-2" />
+                </div>
+
             </React.Fragment>
         );
     }

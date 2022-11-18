@@ -62,14 +62,14 @@ function CheckListCondition(state,lineContent)
     const reMatch = lineContent.match(/^[0-9]+\. /g);
     const lineEnd = ed === state.text.length || state.text.substring(ed,ed + 1) === "\n";
     if (st === ed && lineEnd && lineContent.startsWith("- "))
-        return ["ul","- "];
+        return "- "
     else if (st === ed && lineEnd && reMatch) {
         const last = reMatch[0].substring(0, reMatch[0].length - 2);
         const cur = (parseInt(last) + 1).toString();
-        return ["ol",`${cur}. `];
+        return `${cur}. `;
     }
     else 
-     return ["other",""];
+     return "";
 
 }   
 
@@ -78,7 +78,7 @@ const EnterAutoList = {
     excute: (api) => {
         let state = api.getTextAreaState();
         const [lineContent] = api.getAllLineContent(state);
-        const [res,modify] = CheckListCondition(state,lineContent);
+        const modify = CheckListCondition(state,lineContent);
         let modifyText = `\n${modify}`;
         let cursurPosition = state.selection.end + modifyText.length;
         api.replaceSelection(modifyText);
@@ -92,68 +92,65 @@ const EnterAutoList = {
     codeKey: ["enter"]
 }
 
-const NormalEnter = {
-    title: "normalEnter",
-    excute: (api) => {
-        let state = api.getTextAreaState();
-        const [lineContent] = api.getAllLineContent(state);
-        const [res,modify] = CheckListCondition(state,lineContent);
-        if(res === "other") {
-            console.log("other")
-            let modifyText = `\n${modify}`;
-            let cursurPosition = state.selection.end + modifyText.length;
-            api.replaceSelection(modifyText);
-            api.setSelectionRange(cursurPosition,cursurPosition);
-        }
-    },
-    keepDefault:true,
-    codeKey: ["enter"]
-}
+// const NormalEnter = {
+//     title: "normalEnter",
+//     excute: (api) => {
+//         let state = api.getTextAreaState();
+//         const [lineContent] = api.getAllLineContent(state);
+//         const [res,modify] = CheckListCondition(state,lineContent);
+//         if(res === "other") {
+//             console.log("other")
+//             let modifyText = `\n${modify}`;
+//             let cursurPosition = state.selection.end + modifyText.length;
+//             api.replaceSelection(modifyText);
+//             api.setSelectionRange(cursurPosition,cursurPosition);
+//         }
+//     },
+//     keepDefault:true,
+//     codeKey: ["enter"]
+// }
 
-const UlEnter = {
-    title: "ulEnter",
-    excute: (api) => {
-        let state = api.getTextAreaState();
-        const [lineContent] = api.getAllLineContent(state);
-        const [res,modify] = CheckListCondition(state,lineContent);
-        if(res === "ul") {
-            console.log("ul");
-            let modifyText = `\n${modify}`;
-            let cursurPosition = state.selection.end + modifyText.length;
-            api.replaceSelection(modifyText);
-            api.setSelectionRange(cursurPosition,cursurPosition);
-            return true;
-        }
-        return false;
-    },
-    keepDefault:true,
-    codeKey: ["enter"]
-}
+// const UlEnter = {
+//     title: "ulEnter",
+//     excute: (api) => {
+//         let state = api.getTextAreaState();
+//         const [lineContent] = api.getAllLineContent(state);
+//         const [res,modify] = CheckListCondition(state,lineContent);
+//         if(res === "ul") {
+//             console.log("ul");
+//             let modifyText = `\n${modify}`;
+//             let cursurPosition = state.selection.end + modifyText.length;
+//             api.replaceSelection(modifyText);
+//             api.setSelectionRange(cursurPosition,cursurPosition);
+//             return true;
+//         }
+//         return false;
+//     },
+//     keepDefault:true,
+//     codeKey: ["enter"]
+// }
 
-const OlEnter = {
-    title:"olEnter",
-    excute:(api) => {
-        let state = api.getTextAreaState();
-        const [lineContent] = api.getAllLineContent(state);
-        const [res,modify] = CheckListCondition(state,lineContent)
-        if(res === "ol") {
-            let modifyText = `\n${modify}`;
-            let cursurPosition = state.selection.end + modifyText.length;
-            api.replaceSelection(modifyText);
-            api.setSelectionRange(cursurPosition,cursurPosition);
-            return true;
-        }
-        return false;
-    },
-    keepDefault:true,
-    codeKey: ["enter"]
-}
+// const OlEnter = {
+//     title:"olEnter",
+//     excute:(api) => {
+//         let state = api.getTextAreaState();
+//         const [lineContent] = api.getAllLineContent(state);
+//         const [res,modify] = CheckListCondition(state,lineContent)
+//         if(res === "ol") {
+//             let modifyText = `\n${modify}`;
+//             let cursurPosition = state.selection.end + modifyText.length;
+//             api.replaceSelection(modifyText);
+//             api.setSelectionRange(cursurPosition,cursurPosition);
+//             return true;
+//         }
+//         return false;
+//     },
+//     keepDefault:true,
+//     codeKey: ["enter"]
+// }
 
 export {
     UnorderedList, 
     OrderedList,
-    UlEnter,
-    OlEnter,
-    NormalEnter,
     EnterAutoList,
 }

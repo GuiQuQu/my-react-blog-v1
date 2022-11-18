@@ -9,7 +9,8 @@ class navBar extends Component {
     state = {}
     render() {
         return (
-            <nav className='bg-white navbar navbar-expand-lg nav-self-container h-4rem border-box'>
+            <nav style={{position: "sticky", top: "0px"}} 
+                className='bg-white navbar navbar-expand-lg nav-self-container h-4rem border-box'>
                 <div className="container-fluid">
                     <a className="navbar-brand nav-self-brand" href="/">归去去</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,7 +18,7 @@ class navBar extends Component {
                     </button>
                     <div className="collapse navbar-collapse nav-list" id="navbarContent">
                         <ul className='navbar-nav me-auto mb-lg-0'>
-                            {/* <li className="nav-item">
+                            <li className="nav-item">
                                 <a className="nav-link active nav-self-link" href="/">Home</a>
                             </li>
                             <li className="nav-item">
@@ -25,7 +26,7 @@ class navBar extends Component {
                             </li>
                             <li className="nav-item">
                                 <a className="nav-link nav-self-link" href="/">Blog</a>
-                            </li> */}
+                            </li>
                         </ul>
                     </div>
                     <div className="image-field d-lg-block">

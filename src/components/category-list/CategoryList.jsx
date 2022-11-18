@@ -10,7 +10,7 @@ class CategoryList extends Component {
         super(props)
         this.state = {
             data : {
-                0:{id:0,value:"root",children:[1,5,7,11]},
+                0:{id:0,value:"root",children:[1,5,7,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28]},
                 1:{id:1,value:"深度学习",children:[2]},
                 2:{id:2,value:"CNN",children:[3,4,9]},
                 3:{id:3,value:"卷积原理",href:"www.baidu.com"},
@@ -22,6 +22,23 @@ class CategoryList extends Component {
                 9:{id:9,value:"文件夹",children:[10]},
                 10:{id:10,value:"文章",href:"www.baidu.com"},
                 11:{id:11,value:"快速排序算法",href:"www.baidu.com"},
+                12:{id:12,value:"快速排序算法",href:"www.baidu.com"},
+                13:{id:13,value:"快速排序算法",href:"www.baidu.com"},
+                14:{id:14,value:"快速排序算法",href:"www.baidu.com"},
+                15:{id:15,value:"快速排序算法",href:"www.baidu.com"},
+                16:{id:16,value:"快速排序算法",href:"www.baidu.com"},
+                17:{id:17,value:"快速排序算法",href:"www.baidu.com"},
+                18:{id:18,value:"快速排序算法",href:"www.baidu.com"},
+                19:{id:19,value:"快速排序算法",href:"www.baidu.com"},
+                20:{id:20,value:"快速排序算法",href:"www.baidu.com"},
+                21:{id:21,value:"快速排序算法",href:"www.baidu.com"},
+                22:{id:22,value:"快速排序算法",href:"www.baidu.com"},
+                23:{id:23,value:"快速排序算法",href:"www.baidu.com"},
+                24:{id:24,value:"快速排序算法",href:"www.baidu.com"},
+                25:{id:25,value:"快速排序算法",href:"www.baidu.com"},
+                26:{id:26,value:"快速排序算法",href:"www.baidu.com"},
+                27:{id:27,value:"快速排序算法",href:"www.baidu.com"},
+                28:{id:28,value:"快速排序算法",href:"www.baidu.com"},
                 }
             }
     }
@@ -29,19 +46,19 @@ class CategoryList extends Component {
     render() {
 
         return (
-            <React.Fragment>
-                <div className='category d-md-block d-none'>
-                <span>Category</span>
-                <hr className="category-line" />
+            // 
+                <div
+                className='border-box w-full d-md-block d-none grow category-sider margin-b-2'>
+                <span className='fs-4'>Category</span>
+                <hr className="margin-t-3 margin-b-3 h-hr" />
                 {this.state.data[0].children.map(nodeId => {
                     let node = this.state.data[nodeId];
                     if (node.children)
-                    return <Folder data={this.state.data} key={node.id} id={node.id} value={node.value} layer={parseInt("0")} treeChildren={node.children}/>
+                        return <Folder data={this.state.data} key={node.id} id={node.id} value={node.value} layer={parseInt("0")} treeChildren={node.children}/>
                     else
-                    return <File key={node.id} id={node.id} value={node.value} layer={parseInt("0")} href={node.href} />
+                        return <File key={node.id} id={node.id} value={node.value} layer={parseInt("0")} href={node.href} />
                 })}
                 </div>
-            </React.Fragment>
         );
     }
 }

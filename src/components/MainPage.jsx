@@ -4,7 +4,7 @@ import Article from './article/Article';
 import CategoryList from './category-list/CategoryList';
 import Bottom from "./bottom/Bottom.jsx"
 const mdContent = `
-# 标题
+# 标题aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
 
 ---
 
@@ -27,17 +27,35 @@ int main() {
 $$
 H_p(q) = \\sum_x q(x) \\log(\\frac{1}{p(x)}) = - \\sum_x q(x) \\log p(x)
 $$
+
+# 1
+# 2
+# 3
+# 4
+# 5
+# 6
+# 7
+# 8
+# 9
+# 10
+# 11
+# 12
+# 13
+# 14
+# 15
 `;
 
 function MainPage() {
     return ( 
-    <React.Fragment>
-            <div className='main-warpper'>
+    <div className='min-h-sub-nav border-box pd-t-6 flex flex-d-col justify-ed items-center'>
+            {/* main部分 */}
+            <div className='w-full flex justify-center grow gap-4 main-container'>
                 <CategoryList />
                 <Article md={mdContent}/>
             </div>
+            {/* 底部 */}
             <Bottom />
-    </React.Fragment>
+    </div>
  );
 }
 

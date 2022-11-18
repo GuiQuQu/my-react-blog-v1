@@ -11,7 +11,7 @@ function Editor(props) {
     const TitleElement = document.querySelector("#md-editor-title");
     setTitle(TitleElement.value);
   }
-  return (<div className="border-box flex justify-center overflow-hidden w-full min-w-0 h-sub-nav">
+  return (<div className="border-box flex justify-center overflow-hidden w-full min-w-0 h-sub-nav pd-t-8">
     <div className="flex flex-d-col bg-white border-r-3 w-full lg-max-w-1200px shadow-0-1-3-gray">
       <div className="flex gap-2 border-b-1px-gray pd-4 pd-t-6">
         <div className="grow flex items-center">

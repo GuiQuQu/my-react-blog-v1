@@ -5,7 +5,6 @@ import md2html from "../../utils/md2html";
 import { TextAreaApi } from "./tools/utils";
 import Tool from "./tools/tool";
 
-// import './MDEditor.css';
 
 function MDEditor (props) {
     const [value, setValue] = React.useState(() => props.value? props.value : "");
@@ -124,14 +123,14 @@ function MDEditor (props) {
                      }
                 })}
             </div>
-            <div className="flex grow min-h-0">
+            <div className="flex grow min-h-0 overflow-hidden">
                     <textarea name="write-area" id="md-editor-write-area"
-                            className="border-none pd-2 grow w-full outline-none overflow-auto thin-gray-scroll"
+                            className="border-none pd-2 grow w-full outline-none overflow-auto thin-gray-scroll resize-none"
                             value={value}
                             onInput={handleInput}
                             style={{cursor: "auto"}}></textarea>
                     <div className="w-full max-w-3px bg-light-gray"></div>
-                <div id="md-editor-preview-area" className='markdown-body grow w-full pd-t-2 pd-3  overflow-auto thin-gray-scroll'></div>
+                <div id="md-editor-preview-area" className='markdown-body grow w-full pd-t-2 pd-3 overflow-auto thin-gray-scroll d-none d-lg-block'></div>
             </div>
 
     </div>)
