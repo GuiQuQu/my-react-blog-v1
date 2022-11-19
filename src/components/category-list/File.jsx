@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 import text_mark from "./text-mark.svg"
-import more_info from "./more.svg";
 /**
  * 叶节点属性 id value 
  * **/
@@ -21,27 +20,16 @@ class File extends Component {
             withe_space += "&nbsp;&nbsp;&nbsp;&nbsp;";
         return withe_space;
     }
-    handleMouseEnter = () => {
-        const adBtn = document.querySelector(`#file-node-${this.props.id} > div > .ad-btn`);
-        adBtn.style.display = "block";
-    }
-    handleMouseLeave = () => {
-        const adBtn = document.querySelector(`#file-node-${this.props.id} > div > .ad-btn`);
-        adBtn.style.display = "none";
-    }
+
     render() { 
         return (
-        <div className="file-node node" id={`file-node-${this.props.id}`}>
-            <div className='node-div' onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+        <div className="" id={`file-node-${this.props.id}`}>
+            <div className="flex gap-1 items-st hover-pointer pd-b-2">
                 {<span style={{
                     paddingRight: `calc(${this.props.layer} * 16px)`
                 }}></span>}
-                {/* <span className="indent" dangerouslySetInnerHTML={{__html: this.indent()}} /> */}
-                <img src={text_mark} alt="file"/>
-                <a href={this.props.href}>{this.props.value}</a>
-                <button type="button" className="right-align ad-btn">
-                    <img src={more_info} alt="more info" />
-                </button>
+                <img className='pd-t-0.5' src={text_mark} alt="file"/>
+                <a className='text-decoration-none color-gray-40 fs-14px' href={this.props.href}>{this.props.value}</a>
             </div>
         </div>
         );

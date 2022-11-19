@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import folder_open from "./fig-open.svg"
 import folder_close from "./fig-close.svg"
-import more_info from "./more.svg";
 import File from "./File.jsx"
 
 
@@ -44,28 +43,17 @@ class Folder extends Component {
             withe_space += "&nbsp;&nbsp;&nbsp;&nbsp;";
         return withe_space;
     }
-    handleMouseEnter = () => {
-        const adBtn = document.querySelector(`#folder-node-${this.props.id} > div > .ad-btn`);
-        adBtn.style.display = "block";
-    }
-    handleMouseLeave = () => {
-        const adBtn = document.querySelector(`#folder-node-${this.props.id} > div > .ad-btn`);
-        adBtn.style.display = "none";
-    }
+
     render() { 
-        return ( <div className='folder-node node' id={`folder-node-${this.props.id}`}>
-        <div className='node-div' onClick={this.handleClick} onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave}>
+        return ( <div className="" id={`folder-node-${this.props.id}`}>
+        <div className="flex gap-1 items-st hover-pointer pd-b-2" onClick={this.handleClick}>
             {<span style={{
-                paddingRight: `calc(${this.props.layer} * 16px)`
+                paddingRight: `calc(${this.props.layer} * 1rem)`
             }}></span>}
-            {/*dangerouslySetInnerHTML 这个问题可能会导致xss攻击,之后需要优化掉*/}
-        {/* <span className="indent" dangerouslySetInnerHTML={{__html: this.indent()}} /> */}
-            <img className='open-img' src={folder_open} alt="folder-open"/>
-            <img className='close-img' src={folder_close} alt="folder-close"/>
-            <span>{this.props.value}</span>
-            <button type="button" className="right-align ad-btn">
-            <img src={more_info} alt="more info" />
-            </button>
+            <img className='open-img pd-t-1' src={folder_open} alt="folder-open"/>
+            <img className='close-img pd-t-1' src={folder_close} alt="folder-close"/>
+            <span className='txt-wrap fs-16px bold'>{this.props.value}</span>
+
         </div>
         {this.props.treeChildren.map((nodeId) => {
             let node = this.props.data[nodeId];

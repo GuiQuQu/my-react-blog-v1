@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import "./CategoryList.css"
+// import "./CategoryList.css"
 
 import Folder from './Folder';
 import File from './File';
@@ -42,13 +42,13 @@ class CategoryList extends Component {
                 }
             }
     }
-
     render() {
 
         return (
             // 
                 <div
-                className='border-box w-full d-md-block d-none grow category-sider margin-b-2'>
+                className='category-sider border-box w-full d-lg-block d-none grow sticky-box'
+                id='category-sider'>
                 <span className='fs-4'>Category</span>
                 <hr className="margin-t-3 margin-b-3 h-hr" />
                 {this.state.data[0].children.map(nodeId => {

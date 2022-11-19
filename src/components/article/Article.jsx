@@ -30,10 +30,10 @@ class Article extends Component {
                     <a className='edit-btn' href='www.baidu.com'>编辑文档</a>
                 </div> */}
                 {/* md-body */}
-                <div className='markdown-body md-container white-card w-full pd-8' id="md-body"></div>
+                <div className='markdown-body border-box md-container white-card w-full pd-8' id="md-body"></div>
                 {/* toc */}
-                <div className="all-toc-container d-xl-block d-none border-box 
-                        white-card pd-4" id="md-toc">
+                <div className="all-toc-container sticky-box d-xl-block d-none border-box 
+                        white-card pd-4 thin-gray-scroll" id="md-toc">
                     <span className='color-60-gray'>On this Page</span>
                     <hr className="margin-b-2 margin-t-2" />
                 </div>

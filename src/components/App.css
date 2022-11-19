@@ -14,12 +14,14 @@
 .overflow-hidden { overflow: hidden; }
 /*width*/
 .w-full { width: 100%; }
+.max-w-full {max-width: 100%;}
 .min-w-0 { min-width: 0px; }
 .min-w-150px {min-width: 150px;}
 .w-half {width: 50%; }
 .max-w-200px {max-width: 200px;}
 /* height */
 .h-full { height: 100%; }
+.max-h-full {max-height: 100%;}
 .min-h-0 {min-height: 0px; }
 .h-hr {height: 0.5rem; }
 .h-2rem { height: 2rem; }
@@ -39,6 +41,8 @@
 .justify-content-ed, .justify-ed { justify-content: flex-end; }
 .justify-content-ct, .justify-content-center, .justify-center { justify-content: center; }
 .items-center { align-items: center; }
+.items-st {align-items: flex-start;}
+.items-ed {align-items: flex-end;}
 .flex-1 {flex: 1 1 0%; }
 .flex-grow-1, .grow-1 { flex-grow: 1; }
 .flex-grow-0, .grow-0 { flex-grow: 0; }
@@ -113,6 +117,7 @@
 .margin-r-8 {margin-right: 2rem; }
 
 /* padding*/
+.pd-t-0\.5 {padding-top: 0.125rem; }
 .pd-1 { padding: 0.25rem; }
 .pd-t-1 { padding-top: 0.25rem; }
 .pd-b-1 { padding-bottom: 0.25rem; }
@@ -180,10 +185,23 @@
 .text-decoration-none {
     text-decoration: none;
 }
+.txt-wrap {overflow-wrap: break-word;}
 /*字号使用bootstrap提供 fs-1 到 fs-6 */
 .fs-12px { font-size: 12px; }
+.fs-14px {font-size: 14px;}
+.fs-16px {font-size: 16px;}
+.fs-17px {font-size: 17px;}
+/* 字体颜色 */
+.color-60-gray, .color-gray-60 { color: hsla(0, 0%, 60%, 100%); }
+.color-40-gray, .color-gray-40 { color: hsla(0, 0%, 40%, 100%); }
+.color-black {color: black; }
+/* 加粗 */
+.bold { font-weight: bold; }
+/* hover */
+.hover-pointer:hover { cursor: pointer; }
+
 /* resize */
-.color-60-gray { color: hsla(0, 0%, 60%, 100%); }
+
 .resize-none { resize: none; }
 /* scroll style */
 .thin-gray-scroll::-webkit-scrollbar {
@@ -271,19 +289,10 @@
 
 /* 100vh- 4rem - 2rem - 2rem - 0.5rem - title内容宽度 - toolbars内容宽度 */
 .h-sub-nav { height: calc(100vh - 4rem); }
+.max-h-sub-nav { max-height: calc(100vh - 4rem); }
 .min-h-sub-nav { min-height: calc(100vh - 4rem); }
 
-.max-bottom-height {
-    max-height: 6rem;
-}
-.category-sider {
-    position: sticky;
-    top: 5.5rem;
-    max-width: 300px;
-    height: calc(100vh - 5.5rem);
-    overflow-y: scroll;
-    overflow-x: auto;
-}
+
 .white-card {
     background-color: white;
     border-radius: 1px;
@@ -291,17 +300,48 @@
     -webkit-box-shadow: 0 1px 3px var(--shadow-gray-light);
     box-shadow: 0 1px 3px var(--shadow-gray-light); 
 }
+.md-container {
+    max-width: 750px;
+}
 @media (min-width: 1400px) 
 {
     .main-container, .main-container-xl {
         max-width: 1320px;
     }
-    .md-container-xl, .md-container {
-        max-width: 750px;
-    }
+}
+.sticky-box {
+    position: sticky;
+    top: 5.5rem;
+}
+.category-sider {
+    max-width: 230px;
+    max-height: calc(100vh - 6.5rem);
+    overflow-y: scroll;
+    overflow-x: auto;
 }
 .all-toc-container {
     max-width: 220px;
+    max-height: calc(100vh - 6.5rem);
+    overflow-y: auto;
+}
+.bottom-caontainer {
+    width: 100%;
+    flex-grow: 1;
+    max-height: 4rem;
+}
+.editor-container {
+    max-width: 1200px;
+    height: 100%;
+}
+.editor-top {
+    /* max-height: 10%; */
+    
+}
+.editor-toolbar {
+    /* max-height: 4%; */
+}
+.editor-main {
+    /* max-height: calc(100% - 14%); */
 }
 /* 目录toc样式*/
 .toc-list {

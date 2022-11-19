@@ -10,7 +10,7 @@ class navBar extends Component {
     render() {
         return (
             <nav style={{position: "sticky", top: "0px"}} 
-                className='bg-white navbar navbar-expand-lg nav-self-container h-4rem border-box'>
+                className='bg-white navbar navbar-expand-lg nav-self-container border-box'>
                 <div className="container-fluid">
                     <a className="navbar-brand nav-self-brand" href="/">归去去</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

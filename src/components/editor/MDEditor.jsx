@@ -22,7 +22,12 @@ function MDEditor (props) {
         const writeContent = ta.value;
         setValue(writeContent);
     }
-    
+    const handleAutoHeight = () => {
+        const ta = document.querySelector("#md-editor-write-area");
+        ta.style.height = "auto";
+        ta.scrollTop = 0;
+        ta.style.height = ta.scrollHeight + 'px';
+    }
     const bindCodeKey =useCallback((ta, tool) => {
             const codeKey = tool["codeKey"];
             if (!codeKey || codeKey.length <= 0)
@@ -106,10 +111,11 @@ function MDEditor (props) {
         props.keyCodeToolbars.forEach((tool) => {bindCodeKey(ta,tool)});
         
         ta.addEventListener("paste",handlePaste);
+        ta.addEventListener("input",handleAutoHeight);
     },[]);
 
-    return (<div className='flex flex-d-col flex-1 overflow-auto'>
-            <div className='flex flex-grow-0 items-center flex-1 gap-1 pd-1 pd-l-2 border-b-1px-gray'>
+    return (<React.Fragment>
+            <div className='editor-toolbar flex grow-0 items-center flex-1 gap-1 pd-1 pd-l-2 border-b-1px-gray'>
                 {props.toolbars.map((tool,idx) => {
                      if (tool.title.toLowerCase() !== "division") {
                         return <Tool key={idx} svg={tool.svg} title={tool.title} hint={tool.hint} _class={tool._class}
@@ -123,7 +129,7 @@ function MDEditor (props) {
                      }
                 })}
             </div>
-            <div className="flex grow min-h-0 overflow-hidden">
+            <div className="editor-main flex grow-1 ">
                     <textarea name="write-area" id="md-editor-write-area"
                             className="border-none pd-2 grow w-full outline-none overflow-auto thin-gray-scroll resize-none"
                             value={value}
@@ -133,7 +139,7 @@ function MDEditor (props) {
                 <div id="md-editor-preview-area" className='markdown-body grow w-full pd-t-2 pd-3 overflow-auto thin-gray-scroll d-none d-lg-block'></div>
             </div>
 
-    </div>)
+    </React.Fragment>)
 };
 
 export default MDEditor;

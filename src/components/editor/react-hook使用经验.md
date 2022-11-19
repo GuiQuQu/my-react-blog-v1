@@ -26,3 +26,9 @@ const [state, dispatch] = useReducer(dataFetchReducer, {
   });
 ```
 # Reducer
+
+ 
+监听滚动,当剩余的滚动高度不足组件高度时,更改组件css
+{
+  position: static;
+}
