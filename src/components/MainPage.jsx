@@ -64,6 +64,7 @@ $$
 
 function MainPage() {
     let arriveBottom = false;
+    // let startscroll = false;
     useEffect(() => {
         // console.log(root.scrollHeight,root.clientHeight);
         // console.log(document.body.clientHeight,document.body.scrollHeight); // 总滚动高度
@@ -101,7 +102,15 @@ function MainPage() {
             window.removeEventListener("scroll",handleScroll);
         }
     }, []);
-    
+    // useEffect(() => {
+    //     const handleScrollNav = (e) => {
+
+    //     }
+    //     window.addEventListener("scroll",handleScrollNav)
+    //     return function() {
+        
+    //     }
+    // }, [])
     return ( 
     <div className='min-h-sub-nav border-box pd-t-6 flex flex-d-col justify-ed items-center'>
             {/* main部分 */}

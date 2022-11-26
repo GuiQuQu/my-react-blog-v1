@@ -24,7 +24,11 @@ import Katex from "katex"
 /**
  * 目前不支持渲染html代码
  * **/
-let md2html=(md,render_toc) => {
+let md2html=(md,render_toc,anchorSetting = {
+  permalink: false,
+  permalinkBefore: true,
+  permalinkSymbol: "#",
+}) => {
   let md_render = new MarkdownIt("default",{
     html: false, // 渲染html代码
     linkify: true, // 自动识别类似url的文本并转换
@@ -54,7 +58,9 @@ let md2html=(md,render_toc) => {
     enabled: true, //使得checkbox可选
     label: true, // 添加label标签
   }) 
-  .use(markdownItAnchor,{ permalink: true, permalinkBefore: true, permalinkSymbol: '#' })
+  .use(markdownItAnchor,{ permalink: anchorSetting.permalink, 
+                          permalinkBefore: anchorSetting.permalinkBefore, 
+                          permalinkSymbol: anchorSetting.permalinkSymbol })
   .use(markdownItTocDoneRight, {
     listType: "ul",
     containerClass: "toc-container",

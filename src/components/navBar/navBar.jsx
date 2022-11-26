@@ -9,7 +9,7 @@ class navBar extends Component {
     state = {}
     render() {
         return (
-            <nav style={{position: "sticky", top: "0px"}} 
+            <nav style={{position: "sticky", top: "0px" ,zIndex: "1" }} 
                 className='bg-white navbar navbar-expand-lg nav-self-container border-box'>
                 <div className="container-fluid">
                     <a className="navbar-brand nav-self-brand" href="/">归去去</a>

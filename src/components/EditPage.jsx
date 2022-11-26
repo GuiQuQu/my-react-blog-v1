@@ -33,15 +33,14 @@ $$
 `;
 
 function EditPage() {
-    // useEffect(() => {
-    //     const body = document.querySelector("body");
-    //     body.style.overflowY = "hidden";
-    //     return function() {
-    //         body.style.overflowY = "auto";
-    //     }
-    // }, []);
-      // border-box flex justify-center overflow-hidden w-full h-full min-w-0 pd-t-8
-    return (<div className="border-box flex w-full min-h-sub-nav justify-center grow pd-t-8">
+    useEffect(() => {
+        const body = document.querySelector("body");
+        body.style.overflowY = "hidden";
+        return function() {
+            body.style.overflowY = "auto";
+        }
+    }, []);
+    return (<div className="border-box flex w-full h-sub-nav justify-center grow pd-t-8">
         <MdEditor
             title={"测试文章"}
             value={mdContent} />

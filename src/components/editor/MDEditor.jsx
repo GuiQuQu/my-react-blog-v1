@@ -5,16 +5,21 @@ import md2html from "../../utils/md2html";
 import { TextAreaApi } from "./tools/utils";
 import Tool from "./tools/tool";
 
+import $ from "jquery";
 
 function MDEditor (props) {
-    const [value, setValue] = React.useState(() => props.value? props.value : "");
+    const [value, setValue] = React.useState(() => props.value ? props.value : "");
 
     // 当value的值修改之后会被触发
     const renderValue = useMemo(() => value, [value]);
     
     useEffect(()=> {
         const previewDiv = document.querySelector("#md-editor-preview-area");
-        previewDiv.innerHTML = md2html(renderValue, () => false);
+        previewDiv.innerHTML = md2html(renderValue, () => false, {
+           permalink:true,
+           permalinkBefore:false,
+           permalinkSymbol: "#",
+        });
     },[renderValue]);
     
     const handleInput = () => { // 监听文本框内容变化,即时渲染预览内容
@@ -22,12 +27,7 @@ function MDEditor (props) {
         const writeContent = ta.value;
         setValue(writeContent);
     }
-    const handleAutoHeight = () => {
-        const ta = document.querySelector("#md-editor-write-area");
-        ta.style.height = "auto";
-        ta.scrollTop = 0;
-        ta.style.height = ta.scrollHeight + 'px';
-    }
+
     const bindCodeKey =useCallback((ta, tool) => {
             const codeKey = tool["codeKey"];
             if (!codeKey || codeKey.length <= 0)
@@ -111,11 +111,43 @@ function MDEditor (props) {
         props.keyCodeToolbars.forEach((tool) => {bindCodeKey(ta,tool)});
         
         ta.addEventListener("paste",handlePaste);
-        ta.addEventListener("input",handleAutoHeight);
+        // ta.addEventListener("input",handleAutoHeight);
     },[]);
+    useEffect(() => {
+        // 修改toc-link的点击事件,来组织默认的滚动跳转
+        const pa = document.querySelector("#md-editor-preview-area");
+        const tocLinks = pa.querySelectorAll(".toc-link");
+        const Idre = /#.*/g;
+        const HandleLinkScroll = (e) => {
+            const href = e.target.href;
+            const ReMatch = href.match(Idre);
+            if (ReMatch) {
+                const targetId = ReMatch[0].substring(1,ReMatch[0].length);
+                console.log(targetId);
+                const target = document.getElementById(targetId);
+                console.log(target);
+                console.log(target.offsetParent);
+                console.log(target.offsetTop,target.offsetHeight);
+                const calcScrollTop = Math.min(target.offsetTop, target.offsetParent.scrollHeight);
+                // pa.scrollTop =calcScrollTop;
+                $("#md-editor-preview-area").finish().animate(
+                    {scrollTop: calcScrollTop},
+                     400, "swing");
+                e.preventDefault();
+            }
+        }
+        for (let i = 0; i < tocLinks.length; ++ i) {
+            tocLinks[i].addEventListener("click", HandleLinkScroll);
+        }
+        return () => {
+            for (let i = 0; i < tocLinks.length; ++ i) {
+                tocLinks[i].removeEventListener("click", HandleLinkScroll);
+            }
+        }
+    }, [value])
 
     return (<React.Fragment>
-            <div className='editor-toolbar flex grow-0 items-center flex-1 gap-1 pd-1 pd-l-2 border-b-1px-gray'>
+            <div className='editor-toolbar flex grow-0 items-center w-full gap-1 pd-1 pd-l-2 border-b-1px-gray'>
                 {props.toolbars.map((tool,idx) => {
                      if (tool.title.toLowerCase() !== "division") {
                         return <Tool key={idx} svg={tool.svg} title={tool.title} hint={tool.hint} _class={tool._class}
@@ -129,14 +161,14 @@ function MDEditor (props) {
                      }
                 })}
             </div>
-            <div className="editor-main flex grow-1 ">
+            <div className="editor-main flex grow-1 overflow-hidden">
                     <textarea name="write-area" id="md-editor-write-area"
                             className="border-none pd-2 grow w-full outline-none overflow-auto thin-gray-scroll resize-none"
                             value={value}
                             onInput={handleInput}
                             style={{cursor: "auto"}}></textarea>
                     <div className="w-full max-w-3px bg-light-gray"></div>
-                <div id="md-editor-preview-area" className='markdown-body grow w-full pd-t-2 pd-3 overflow-auto thin-gray-scroll d-none d-lg-block'></div>
+                <div id="md-editor-preview-area" className='markdown-body relative grow w-full pd-t-2 pd-3 overflow-auto thin-gray-scroll d-none d-lg-block'></div>
             </div>
 
     </React.Fragment>)
