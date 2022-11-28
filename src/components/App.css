@@ -154,6 +154,7 @@
 .pd-b-8 { padding-bottom: 2rem; }
 .pd-l-8 { padding-left: 2rem; }
 .pd-r-8 { padding-right: 2rem; }
+
 /* border */ 
 .border-none { border: none; }
 .border-solid {border: solid; }
@@ -334,6 +335,14 @@
     max-width: 1200px;
     height: 100%;
 }
+.category-container-warrper {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+}
+.category-container {
+    max-width: 1320px;
+}
+
 
 /* 目录toc样式*/
 .toc-list {

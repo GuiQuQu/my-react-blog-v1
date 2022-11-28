@@ -5,8 +5,6 @@ import md2html from "../../utils/md2html";
 import { TextAreaApi } from "./tools/utils";
 import Tool from "./tools/tool";
 
-import $ from "jquery";
-
 function MDEditor (props) {
     const [value, setValue] = React.useState(() => props.value ? props.value : "");
 

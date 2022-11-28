@@ -64,7 +64,6 @@ $$
 
 function MainPage() {
     let arriveBottom = false;
-    // let startscroll = false;
     useEffect(() => {
         // console.log(root.scrollHeight,root.clientHeight);
         // console.log(document.body.clientHeight,document.body.scrollHeight); // 总滚动高度
