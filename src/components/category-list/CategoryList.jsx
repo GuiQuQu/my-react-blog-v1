@@ -47,10 +47,11 @@ class CategoryList extends Component {
         return (
             // 
                 <div
-                className='category-sider border-box w-full d-lg-block d-none grow sticky-box'
+                className='category-sider thin-gray-scroll white-card 
+                border-box w-full d-lg-block d-none grow sticky-box pd-2'
                 id='category-sider'>
-                <span className='fs-4'>Category</span>
-                <hr className="margin-t-3 margin-b-3 h-hr" />
+                {/* <span className='fs-4'>Category</span> */}
+                {/* <hr className="margin-t-3 margin-b-3 h-hr" /> */}
                 {this.state.data[0].children.map(nodeId => {
                     let node = this.state.data[nodeId];
                     if (node.children)

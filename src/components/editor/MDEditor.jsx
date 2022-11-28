@@ -123,16 +123,13 @@ function MDEditor (props) {
             const ReMatch = href.match(Idre);
             if (ReMatch) {
                 const targetId = ReMatch[0].substring(1,ReMatch[0].length);
-                console.log(targetId);
                 const target = document.getElementById(targetId);
-                console.log(target);
-                console.log(target.offsetParent);
-                console.log(target.offsetTop,target.offsetHeight);
-                const calcScrollTop = Math.min(target.offsetTop, target.offsetParent.scrollHeight);
-                // pa.scrollTop =calcScrollTop;
-                $("#md-editor-preview-area").finish().animate(
-                    {scrollTop: calcScrollTop},
-                     400, "swing");
+                // const calcScrollTop = Math.min(target.offsetTop, target.offsetParent.scrollHeight);
+                const calcScrollTop = target.offsetTop;
+                pa.scrollTop =calcScrollTop;
+                // $("#md-editor-preview-area").animate(
+                //     {scrollTop: $(`#${targetId}`).offset().top}
+                // );
                 e.preventDefault();
             }
         }
@@ -168,7 +165,7 @@ function MDEditor (props) {
                             onInput={handleInput}
                             style={{cursor: "auto"}}></textarea>
                     <div className="w-full max-w-3px bg-light-gray"></div>
-                <div id="md-editor-preview-area" className='markdown-body relative grow w-full pd-t-2 pd-3 overflow-auto thin-gray-scroll d-none d-lg-block'></div>
+                <div id="md-editor-preview-area" className='markdown-body relative smooth-scroll grow w-full pd-t-2 pd-3 overflow-auto thin-gray-scroll d-none d-lg-block'></div>
             </div>
 
     </React.Fragment>)

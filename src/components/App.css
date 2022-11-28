@@ -12,6 +12,7 @@
 .overflow-y-hidden { overflow-y: hidden; }
 .overflow-y-scroll { overflow-y:scroll; }
 .overflow-hidden { overflow: hidden; }
+.smooth-scroll {scroll-behavior: smooth;}
 /*width*/
 .w-full { width: 100%; }
 .max-w-full {max-width: 100%;}
@@ -213,7 +214,7 @@
     --gray-60: hsla(0,0%,60%,100%);
     background-color: var(--gray-60);
 }
-
+.smooth-scroll {scroll-behavior: smooth;}
 /* 模仿bootstrap搞得按钮颜色 */
 .app-btn {
     --btn-padding-x: 0.75rem;
@@ -316,7 +317,7 @@
 .category-sider {
     max-width: 230px;
     max-height: calc(100vh - 6.5rem);
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: auto;
 }
 .all-toc-container {
@@ -332,16 +333,6 @@
 .editor-container {
     max-width: 1200px;
     height: 100%;
-}
-.editor-top {
-    /* max-height: 10%; */
-    
-}
-.editor-toolbar {
-    /* max-height: 4%; */
-}
-.editor-main {
-    /* max-height: calc(100% - 14%); */
 }
 
 /* 目录toc样式*/

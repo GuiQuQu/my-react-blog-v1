@@ -34,7 +34,7 @@ class Article extends Component {
                 {/* toc */}
                 <div className="all-toc-container sticky-box d-xl-block d-none border-box 
                         white-card pd-4 thin-gray-scroll" id="md-toc">
-                    <span className='color-60-gray'>On this Page</span>
+                    <span>目录</span>
                     <hr className="margin-b-2 margin-t-2" />
                 </div>
 
